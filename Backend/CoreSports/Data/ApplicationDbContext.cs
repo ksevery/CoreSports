@@ -9,8 +9,6 @@ namespace Data
     {
         public DbSet<Event> Events { get; set; }
 
-        public DbSet<Team> Teams { get; set; }
-
         public DbSet<Market> Markets { get; set; }
 
         public DbSet<Selection> Selections { get; set; }

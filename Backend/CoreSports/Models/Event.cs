@@ -22,13 +22,9 @@ namespace Models
 
         public EventType Type { get; set; }
 
-        public int HomeId { get; set; }
+        public string Home { get; set; }
 
-        public virtual Team Home { get; set; }
-
-        public int AwayId { get; set; }
-
-        public virtual Team Away { get; set; }
+        public string Away { get; set; }
 
         public virtual ICollection<Market> Markets
         {
