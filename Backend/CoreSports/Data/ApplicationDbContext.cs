@@ -7,6 +7,16 @@ namespace Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Event> Events { get; set; }
+
+        public DbSet<Team> Teams { get; set; }
+
+        public DbSet<Market> Markets { get; set; }
+
+        public DbSet<Selection> Selections { get; set; }
+
+        public DbSet<UserBet> UserBets { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
