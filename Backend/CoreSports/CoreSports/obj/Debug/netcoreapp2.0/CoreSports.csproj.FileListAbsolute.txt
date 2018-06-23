@@ -1,0 +1,15 @@
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/bin/Debug/netcoreapp2.0/CoreSports.deps.json
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/bin/Debug/netcoreapp2.0/CoreSports.runtimeconfig.json
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/bin/Debug/netcoreapp2.0/CoreSports.runtimeconfig.dev.json
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/bin/Debug/netcoreapp2.0/CoreSports.dll
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/bin/Debug/netcoreapp2.0/CoreSports.pdb
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/bin/Debug/netcoreapp2.0/Data.dll
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/bin/Debug/netcoreapp2.0/Models.dll
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/bin/Debug/netcoreapp2.0/Data.pdb
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/bin/Debug/netcoreapp2.0/Models.pdb
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/obj/Debug/netcoreapp2.0/CoreSports.csprojResolveAssemblyReference.cache
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/obj/Debug/netcoreapp2.0/CoreSports.csproj.CoreCompileInputs.cache
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/obj/Debug/netcoreapp2.0/CoreSports.AssemblyInfoInputs.cache
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/obj/Debug/netcoreapp2.0/CoreSports.AssemblyInfo.cs
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/obj/Debug/netcoreapp2.0/CoreSports.dll
+/Users/ksevery/CoreSports/Backend/CoreSports/CoreSports/obj/Debug/netcoreapp2.0/CoreSports.pdb
