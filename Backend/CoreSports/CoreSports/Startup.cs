@@ -49,27 +49,8 @@ namespace CoreSports
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
 
-                // Lockout settings
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-                options.Lockout.MaxFailedAccessAttempts = 10;
-                options.Lockout.AllowedForNewUsers = true;
-
                 // User settings
                 options.User.RequireUniqueEmail = false;
-            });
-
-            services.ConfigureApplicationCookie(options =>
-            {
-                // Cookie settings
-                options.Cookie.HttpOnly = true;
-                options.Cookie.Expiration = TimeSpan.FromDays(150);
-                // If the LoginPath isn't set, ASP.NET Core defaults 
-                // the path to /Account/Login.
-                options.LoginPath = "/Account/Login";
-                // If the AccessDeniedPath isn't set, ASP.NET Core defaults 
-                // the path to /Account/AccessDenied.
-                options.AccessDeniedPath = "/Account/AccessDenied";
-                options.SlidingExpiration = true;
             });
 
             ServicesConfig.RegisterDependencies(services);
@@ -100,11 +81,17 @@ namespace CoreSports
                 ClockSkew = TimeSpan.Zero
             };
 
-            services.AddAuthentication()
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
             {
+                options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
+                options.ClaimsIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
+                options.RequireHttpsMetadata = false;
+                options.IncludeErrorDetails = true;
                 options.TokenValidationParameters = tokenValidationParameters;
             });
+
+            services.AddAuthorization();
 
             services.AddMvc();
 
@@ -125,8 +112,6 @@ namespace CoreSports
 
             app.UseAuthentication();
 
-            app.UseMvc();
-
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -134,6 +119,11 @@ namespace CoreSports
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoreSports Api V1");
+            });
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute("default", "{controller=Values}/{action=Index}/{id?}");
             });
         }
     }

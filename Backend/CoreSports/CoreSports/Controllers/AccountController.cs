@@ -41,9 +41,6 @@ namespace CoreSports.Controllers
             _jwtOptions = jwtOptions.Value;
         }
 
-        [TempData]
-        public string ErrorMessage { get; set; }
-
         [Route("login")]
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)

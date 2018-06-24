@@ -26,7 +26,7 @@ namespace CoreSports.Controllers
         }
 
         // GET api/values/5
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("{id}")]
         public string Get(int id)
         {
