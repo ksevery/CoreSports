@@ -21,6 +21,8 @@ namespace Models
 
         public string Name { get; set; }
 
+        public MarketStatus Status { get; set; }
+
         public int EventId { get; set; }
 
         public virtual Event Event { get; set; }

@@ -31,7 +31,7 @@ namespace CoreSports.Services
                 var away = item.Attribute("Away")?.Value.ToString();
                 var newEvent = new Event
                 {
-                    Id = int.Parse(eventId),
+                    InternalId = int.Parse(eventId),
                     Time = eventTime,
                     Away = away,
                     Home = home,
@@ -53,10 +53,11 @@ namespace CoreSports.Services
 
                 var newMarket = new Market
                 {
-                    Id = marketId,
+                    InternalId = marketId,
                     Number = marketNumber,
                     Name = marketName,
-                    Selections = this.MapSelections(marketItem.Descendants("Selection"))
+                    Selections = this.MapSelections(marketItem.Descendants("Selection")),
+                    Status = MarketStatus.Open
                 };
 
                 return newMarket;
@@ -71,18 +72,39 @@ namespace CoreSports.Services
                 var selectionNumber = int.Parse(selectionItem.Attribute("Number")?.Value.ToString());
                 var selectionDescription = selectionItem.Attribute("Description")?.Value.ToString();
                 var selectionOdds = decimal.Parse(selectionItem.Attribute("OddsDecimal")?.Value.ToString());
-                var participantType = selectionItem.Attribute("Participant")?.Value.ToString();
+                var participantType = this.MapParticipantType(selectionItem.Attribute("Participant")?.Value.ToString());
 
                 var newSelection = new Selection
                 {
-                    Id = selectionId,
+                    InternalId = selectionId,
                     Number = selectionNumber,
                     Description = selectionDescription,
-                    Odds = selectionOdds
+                    Odds = selectionOdds,
+                    ParticipantType = participantType
                 };
 
                 return newSelection;
             }).ToList();
+        }
+
+        public ParticipantType MapParticipantType(string rawType)
+        {
+            if (rawType == "HOME")
+            {
+                return ParticipantType.Home;
+            }
+
+            if (rawType == "AWAY")
+            {
+                return ParticipantType.Away;
+            }
+
+            if (rawType == "DRAW")
+            {
+                return ParticipantType.Draw;
+            }
+
+            return ParticipantType.None;
         }
     }
 }
