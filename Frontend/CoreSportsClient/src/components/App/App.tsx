@@ -1,5 +1,7 @@
 import * as React from 'react';
-import './App.css';
+
+
+import SidebarGameTypePanel from '../SidebarGameTypePanel/SidebarGameTypePanel';
 
 class App extends React.Component {
   public render() {
@@ -45,7 +47,7 @@ class App extends React.Component {
             </nav>
 
             <div className="Sidebar col-md-4">
-              ....
+              <SidebarGameTypePanel/> 
             </div>
             <div className="Content">
               ....
