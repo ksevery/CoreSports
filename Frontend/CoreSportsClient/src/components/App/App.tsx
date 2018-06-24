@@ -46,12 +46,16 @@ class App extends React.Component {
               </div>
             </nav>
 
-            <div className="Sidebar col-md-4">
+            <div className="LeftSidebar col-md-3">
               <SidebarGameTypePanel/> 
             </div>
-            <div className="Content">
+            <div className="Content col-md-6">
               ....
             </div>
+            <div className="RightSidebar col-md-3">
+            ...
+            </div>
+
 
           </div> 
       </div>
