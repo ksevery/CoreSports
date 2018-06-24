@@ -180,6 +180,88 @@ namespace Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Models.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Away");
+
+                    b.Property<string>("Home");
+
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("Time");
+
+                    b.Property<int>("Type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("Models.Market", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EventId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Number");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.ToTable("Markets");
+                });
+
+            modelBuilder.Entity("Models.Selection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<int>("MarketId");
+
+                    b.Property<int>("Number");
+
+                    b.Property<decimal>("Odds");
+
+                    b.Property<int>("ParticipantType");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MarketId");
+
+                    b.ToTable("Selections");
+                });
+
+            modelBuilder.Entity("Models.UserBet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("SelectionId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SelectionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserBets");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -223,6 +305,34 @@ namespace Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Models.Market", b =>
+                {
+                    b.HasOne("Models.Event", "Event")
+                        .WithMany("Markets")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Models.Selection", b =>
+                {
+                    b.HasOne("Models.Market", "Market")
+                        .WithMany("Selections")
+                        .HasForeignKey("MarketId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Models.UserBet", b =>
+                {
+                    b.HasOne("Models.Selection", "Selection")
+                        .WithMany("UserBets")
+                        .HasForeignKey("SelectionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

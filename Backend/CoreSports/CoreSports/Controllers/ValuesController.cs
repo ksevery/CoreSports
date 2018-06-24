@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Data.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreSports.Controllers
@@ -9,6 +10,13 @@ namespace CoreSports.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private IUnitOfWork _data;
+
+        public ValuesController(IUnitOfWork unitOfWork)
+        {
+            _data = unitOfWork;
+        }
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
