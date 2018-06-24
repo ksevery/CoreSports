@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreSports.Helpers;
 using Data.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,7 @@ namespace CoreSports.Controllers
         }
 
         // GET api/values
+        [Authorize(AuthenticationSchemes = "Bearer", Policy = Constants.AdminRole)]
         [HttpGet]
         public IEnumerable<string> Get()
         {

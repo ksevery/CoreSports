@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CoreSports.Auth;
 using CoreSports.Configuration;
+using CoreSports.Helpers;
 using CoreSports.ViewModels;
 using Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -90,8 +92,13 @@ namespace CoreSports
                 options.IncludeErrorDetails = true;
                 options.TokenValidationParameters = tokenValidationParameters;
             });
+            
+            services.AddCors();
 
-            services.AddAuthorization();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Constants.AdminRole, policy => policy.RequireClaim(Constants.RoleClaim, Constants.AdminRole));
+            });
 
             services.AddMvc();
 
@@ -109,6 +116,8 @@ namespace CoreSports
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod());
 
             app.UseAuthentication();
 

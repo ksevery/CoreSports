@@ -16,4 +16,7 @@
     <Folder Include="Repositories\" />
     <Folder Include="UnitOfWork\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Seed\DatabaseSeeder.cs" />
+  </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Models;
 
 namespace CoreSports.ViewModels
 {
@@ -18,6 +19,8 @@ namespace CoreSports.ViewModels
         public string Name { get; set; }
 
         public int EventId { get; set; }
+
+        public MarketStatus Status { get; set; }
 
         public IList<SelectionViewModel> Selections { get; set; }
     }

@@ -3,7 +3,7 @@ namespace CoreSports.Helpers
 {
     public static class Constants
     {
-        public const string Rol = "rol", Id = "id";
-        public const string ApiAccess = "api_access";
+        public const string RoleClaim = "roleclaim", IdClaim = "id";
+        public const string AdminRole = "admin";
     }
 }
