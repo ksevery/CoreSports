@@ -1,11 +1,34 @@
 import * as React from 'react';
 import RootComponent from '../RootContent/RootComponent';
 
+import SidebarGameTypePanel from '../SidebarGameTypePanel/SidebarGameTypePanel';
 import './App.css';
 
-import SidebarGameTypePanel from '../SidebarGameTypePanel/SidebarGameTypePanel';
-
 class App extends React.Component {
+
+
+  constructor(props:any){
+    super(props);
+    this.state = {
+      events: [ ]
+    }
+  }
+
+  public componentDidMount(){
+    let allEvents = ""
+    fetch("http://7cbe7193.ngrok.io/api/events")
+    .then(results => {
+        return results.json();
+      }).then(data => {
+        allEvents = data.results.map((e:any) => {
+          return(
+            <div key={e.home}>{e.home}</div>);
+        })
+      })
+ 
+    this.setState({events: allEvents})
+  }
+
   public render() {
     return (
       <div className="App">
@@ -50,10 +73,11 @@ class App extends React.Component {
 
             <div className="LeftSidebar col-md-2">
               Games:
-              <SidebarGameTypePanel/> 
+              <SidebarGameTypePanel /> 
             </div>
             <div className="Content col-md-8">
               <RootComponent />
+              {this.state.events}
             </div>
             <div className="RightSidebar col-md-2">
               Bets: 

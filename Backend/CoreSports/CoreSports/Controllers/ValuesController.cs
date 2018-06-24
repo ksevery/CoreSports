@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.UnitOfWork;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreSports.Controllers
@@ -25,6 +26,7 @@ namespace CoreSports.Controllers
         }
 
         // GET api/values/5
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("{id}")]
         public string Get(int id)
         {
