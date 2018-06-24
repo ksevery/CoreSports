@@ -1,11 +1,13 @@
 import * as React from 'react';
-import './App.css';
+import RootComponent from '../RootContent/RootComponent';
+
+import SidebarGameTypePanel from '../SidebarGameTypePanel/SidebarGameTypePanel';
 
 class App extends React.Component {
   public render() {
     return (
       <div className="App">
-          <div className="container">
+          <div className="container-fluid">
             <nav className="navbar navbar-default">
               <div className="container-fluid">
                 <div className="navbar-header">
@@ -44,11 +46,14 @@ class App extends React.Component {
               </div>
             </nav>
 
-            <div className="Sidebar col-md-4">
-              ....
+            <div className="LeftSidebar col-md-2">
+              <SidebarGameTypePanel/> 
             </div>
-            <div className="Content">
-              ....
+            <div className="Content col-md-8">
+              <RootComponent />
+            </div>
+            <div className="RightSidebar col-md-2">
+            ...
             </div>
 
           </div> 
