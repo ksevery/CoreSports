@@ -1,6 +1,6 @@
+import * as jqueryLib from 'jquery';
 import * as React from 'react';
 import RootComponent from '../RootContent/RootComponent';
-
 import SidebarGameTypePanel from '../SidebarGameTypePanel/SidebarGameTypePanel';
 import './App.css';
 
@@ -15,18 +15,14 @@ class App extends React.Component {
   }
 
   public componentDidMount(){
-    let allEvents = ""
-    fetch("http://7cbe7193.ngrok.io/api/events")
-    .then(results => {
-        return results.json();
-      }).then(data => {
-        allEvents = data.results.map((e:any) => {
-          return(
-            <div key={e.home}>{e.home}</div>);
-        })
-      })
- 
-    this.setState({events: allEvents})
+    jqueryLib.ajax({
+      cache:false,
+      dataType: 'json',
+      success:(data:any) => {
+        this.setState({events: data})
+      },
+      url: 'http://7cbe7193.ngrok.io/api/events'
+    })
   }
 
   public render() {
@@ -77,7 +73,7 @@ class App extends React.Component {
             </div>
             <div className="Content col-md-8">
               <RootComponent />
-              {this.state.events}
+              
             </div>
             <div className="RightSidebar col-md-2">
               Bets: 
