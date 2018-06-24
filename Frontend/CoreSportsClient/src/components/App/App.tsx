@@ -1,5 +1,7 @@
 import * as React from 'react';
+import RootComponent from '../RootContent/RootComponent';
 
+import './App.css';
 
 import SidebarGameTypePanel from '../SidebarGameTypePanel/SidebarGameTypePanel';
 
@@ -7,7 +9,7 @@ class App extends React.Component {
   public render() {
     return (
       <div className="App">
-          <div className="container">
+          <div className="container-fluid">
             <nav className="navbar navbar-default">
               <div className="container-fluid">
                 <div className="navbar-header">
@@ -17,7 +19,7 @@ class App extends React.Component {
                     <span className="icon-bar"/>
                     <span className="icon-bar"/>
                   </button>
-                  <a className="navbar-brand" href="#">Project name</a>
+                  <a className="navbar-brand" href="#">CoreDev Sports</a>
                 </div>
                 <div id="navbar" className="navbar-collapse collapse">
                   <ul className="nav navbar-nav">
@@ -46,16 +48,17 @@ class App extends React.Component {
               </div>
             </nav>
 
-            <div className="LeftSidebar col-md-3">
+            <div className="LeftSidebar col-md-2">
+              Games:
               <SidebarGameTypePanel/> 
             </div>
-            <div className="Content col-md-6">
-              ....
+            <div className="Content col-md-8">
+              <RootComponent />
             </div>
-            <div className="RightSidebar col-md-3">
-            ...
+            <div className="RightSidebar col-md-2">
+              Bets: 
+              <SidebarGameTypePanel/> 
             </div>
-
 
           </div> 
       </div>

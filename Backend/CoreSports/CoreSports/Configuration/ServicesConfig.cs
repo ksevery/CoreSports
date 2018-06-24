@@ -15,6 +15,7 @@ namespace CoreSports.Configuration
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IMappingService, XmlMappingService>();
 
+            services.AddTransient<IEventsService, EventsService>();
             services.AddSingleton<IJwtFactory, JwtFactory>();
         }
     }

@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CoreSports.Services.Contracts;
+using CoreSports.ViewModels;
 using Data.UnitOfWork;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Models;
 
 namespace CoreSports.Controllers
@@ -14,17 +16,20 @@ namespace CoreSports.Controllers
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMappingService mappingService;
+        private readonly IEventsService eventsService;
 
-        public EventsController(IUnitOfWork unitOfWork, IMappingService mappingService)
+        public EventsController(IUnitOfWork unitOfWork, IMappingService mappingService, IEventsService eventsService)
         {
             this.unitOfWork = unitOfWork;
             this.mappingService = mappingService;
+            this.eventsService = eventsService;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return this.Ok(this.unitOfWork.Events.Entities.ToList());
+            var result = this.eventsService.MapToViewModels(this.unitOfWork.Events.Entities.Include(x => x.Markets).Include("Markets.Selections"));
+            return this.Ok(result);
         }
 
         [HttpPost]
@@ -32,7 +37,8 @@ namespace CoreSports.Controllers
         {
             using (var input = file.OpenReadStream())
             {
-                var mappedEvents = this.mappingService.MapToEvents(input);
+                var improtCommand = this.mappingService.MapToEvents(input);
+                this.eventsService.Import(improtCommand);
             }
 
             return this.Ok();
