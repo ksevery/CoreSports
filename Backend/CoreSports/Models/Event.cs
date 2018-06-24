@@ -16,6 +16,8 @@ namespace Models
         [Key]
         public int Id { get; set; }
 
+        public int InternalId { get; set; }
+
         public DateTime Time { get; set; }
 
         public string Name { get; set; }

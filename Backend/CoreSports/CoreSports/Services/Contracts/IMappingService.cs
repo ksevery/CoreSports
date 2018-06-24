@@ -4,7 +4,7 @@ using Models;
 
 namespace CoreSports.Services.Contracts
 {
-    public interface IMappingServicecs
+    public interface IMappingService
     {
         IEnumerable<Event> MapToEvents(Stream documentStream);
     }
