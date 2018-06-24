@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CoreSports.Helpers;
 using CoreSports.Services.Contracts;
 using CoreSports.ViewModels;
 using Data.UnitOfWork;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +34,7 @@ namespace CoreSports.Controllers
             return this.Ok(result);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Policy = Constants.AdminRole)]
         [HttpPost]
         public IActionResult Post(IFormFile file)
         {
