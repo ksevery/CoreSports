@@ -1,11 +1,15 @@
 import * as React from 'react';
-import Path from '../Path/Path';
 
+import MarketHolder from '../MarketHolder/MarketHolder';
+import Path from '../Path/Path';
 
 class RootComponent extends React.Component {
   public render() {
     return (
-     <Path />
+        <div>
+            <Path />
+            <MarketHolder />
+        </div>
     );
   }
 }
