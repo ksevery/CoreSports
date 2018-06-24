@@ -16,44 +16,19 @@ namespace CoreSports.Controllers
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMappingService mappingService;
+        private readonly IEventsService eventsService;
 
-        public EventsController(IUnitOfWork unitOfWork, IMappingService mappingService)
+        public EventsController(IUnitOfWork unitOfWork, IMappingService mappingService, IEventsService eventsService)
         {
             this.unitOfWork = unitOfWork;
             this.mappingService = mappingService;
+            this.eventsService = eventsService;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            var result = this.unitOfWork.Events.Entities.Include(x => x.Markets).Include("Markets.Selections").Select((x) => new EventViewModel
-            {
-                Id = x.Id,
-                InternalId = x.InternalId,
-                Away = x.Away,
-                Home = x.Home,
-                Name = x.Name,
-                Time = x.Time,
-                Type = x.Type,
-                Markets = x.Markets.Select(y => new MarketViewModel
-                {
-                    Id = y.Id,
-                    InternalId = y.InternalId,
-                    Name = y.Name,
-                    EventId = y.EventId,
-                    Number = y.Number,
-                    Selections = y.Selections.Select(z => new SelectionViewModel
-                    {
-                        Id = z.Id,
-                        InternalId = z.InternalId,
-                        ParticipantType = z.ParticipantType,
-                        Number = z.Number,
-                        Description = z.Description,
-                        MarketId = z.MarketId,
-                        Odds = z.Odds
-                    }).ToList()
-                }).ToList()
-            });
+            var result = this.eventsService.MapToViewModels(this.unitOfWork.Events.Entities.Include(x => x.Markets).Include("Markets.Selections"));
             return this.Ok(result);
         }
 
@@ -62,14 +37,8 @@ namespace CoreSports.Controllers
         {
             using (var input = file.OpenReadStream())
             {
-                var mappedEvents = this.mappingService.MapToEvents(input);
-
-                foreach (var mappedEvent in mappedEvents)
-                {
-                    this.unitOfWork.Events.Add(mappedEvent);
-                }
-
-                this.unitOfWork.Commit();
+                var improtCommand = this.mappingService.MapToEvents(input);
+                this.eventsService.Import(improtCommand);
             }
 
             return this.Ok();
