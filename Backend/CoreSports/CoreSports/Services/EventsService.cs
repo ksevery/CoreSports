@@ -51,7 +51,6 @@ namespace CoreSports.Services
                 InternalId = x.InternalId,
                 Away = x.Away,
                 Home = x.Home,
-                Name = x.Name,
                 Time = x.Time,
                 Type = x.Type,
                 Markets = x.Markets.Select(y => new MarketViewModel

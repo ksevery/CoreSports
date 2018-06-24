@@ -20,7 +20,7 @@ namespace CoreSports.Services
 
             var newCommand = new EventCommand();
             var tenisEvents = this.MapEvents(document.Descendants("TennisEvent"), EventType.Tenis);
-            var footballEvents = this.MapEvents(document.Descendants("FootballEvent"), EventType.Tenis);
+            var footballEvents = this.MapEvents(document.Descendants("FootballEvent"), EventType.Football);
             var result = new List<Event>();
             result.AddRange(tenisEvents);
             result.AddRange(footballEvents);
