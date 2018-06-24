@@ -4,6 +4,10 @@ import './SidebarGameTypePanel.css';
 import {Panel} from 'react-bootstrap'; 
 
 class SidebarGameTypePanel extends React.Component {
+
+
+
+
   public render() {
     return (
       <div>

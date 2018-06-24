@@ -68,6 +68,7 @@ namespace CoreSports.Services
                 var marketId = int.Parse(marketItem.Attribute("ID")?.Value.ToString());
                 var marketNumber = int.Parse(marketItem.Attribute("Number")?.Value.ToString());
                 var marketName = marketItem.Attribute("Name")?.Value.ToString();
+                var marketStatus = marketItem.Attribute("Status")?.Value.ToString();
 
                 var newMarket = new Market
                 {
@@ -75,7 +76,7 @@ namespace CoreSports.Services
                     Number = marketNumber,
                     Name = marketName,
                     Selections = this.MapSelections(marketItem.Descendants("Selection")),
-                    Status = MarketStatus.Open
+                    Status = marketStatus == null ? MarketStatus.Open : MarketStatus.Close
                 };
 
                 return newMarket;

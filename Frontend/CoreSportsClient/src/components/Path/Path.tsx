@@ -1,6 +1,7 @@
 import * as React from 'react';
 import  { Breadcrumb } from 'react-bootstrap';
 
+import './Path.css';
 class Path extends React.Component {
         
   public render() {
