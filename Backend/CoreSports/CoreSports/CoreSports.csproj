@@ -12,6 +12,7 @@
     <Folder Include="Auth\" />
     <Folder Include="Helpers\" />
     <Folder Include="Configuration\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
