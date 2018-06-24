@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CoreSports.Auth;
 using CoreSports.Configuration;
+using CoreSports.Helpers;
 using CoreSports.ViewModels;
 using Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -91,7 +93,10 @@ namespace CoreSports
                 options.TokenValidationParameters = tokenValidationParameters;
             });
 
-            services.AddAuthorization();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Constants.AdminRole, policy => policy.RequireClaim(Constants.RoleClaim, Constants.AdminRole));
+            });
 
             services.AddMvc();
 

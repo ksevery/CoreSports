@@ -4,6 +4,7 @@ using CoreSports.Services.Contracts;
 using Data.UnitOfWork;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Email;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoreSports.Configuration
 {
@@ -16,6 +17,7 @@ namespace CoreSports.Configuration
             services.AddTransient<IMappingService, XmlMappingService>();
 
             services.AddTransient<IEventsService, EventsService>();
+
             services.AddSingleton<IJwtFactory, JwtFactory>();
         }
     }

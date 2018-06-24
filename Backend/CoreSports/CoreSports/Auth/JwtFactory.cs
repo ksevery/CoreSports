@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Principal;
@@ -25,8 +26,8 @@ namespace CoreSports.Auth
                  new Claim(JwtRegisteredClaimNames.Sub, userName),
                  new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
                  new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
-                 identity.FindFirst(Helpers.Constants.Rol),
-                 identity.FindFirst(Helpers.Constants.Id)
+                 identity.FindFirst(Helpers.Constants.RoleClaim),
+                 identity.FindFirst(Helpers.Constants.IdClaim)
              };
 
             // Create the JWT security token and encode it.
@@ -43,13 +44,10 @@ namespace CoreSports.Auth
             return encodedJwt;
         }
 
-        public ClaimsIdentity GenerateClaimsIdentity(string userName, string id)
+        public ClaimsIdentity GenerateClaimsIdentity(string userName, IEnumerable<Claim> claims)
         {
-            return new ClaimsIdentity(new GenericIdentity(userName, "Token"), new[]
-            {
-                new Claim(Helpers.Constants.Id, id),
-                new Claim(Helpers.Constants.Rol, Helpers.Constants.ApiAccess)
-            });
+            var identity = new ClaimsIdentity(new GenericIdentity(userName, "Token"), claims);
+            return identity;
         }
 
         /// <returns>Date converted to seconds since Unix epoch (Jan 1, 1970, midnight UTC).</returns>

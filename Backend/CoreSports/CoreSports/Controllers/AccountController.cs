@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using CoreSports.Auth;
+using CoreSports.Helpers;
 using CoreSports.ViewModels;
 using CoreSports.ViewModels.AccountViewModels;
 using Microsoft.AspNetCore.Authentication;
@@ -87,7 +88,9 @@ namespace CoreSports.Controllers
                 return BadRequest(ModelState);
             }
 
-            return new OkResult();
+            await _userManager.AddClaimAsync(user, new Claim(Constants.IdClaim, user.Id));
+
+            return Ok();
         }
 
         private async Task<ClaimsIdentity> GetClaimsIdentity(string userName, string password)
@@ -102,7 +105,8 @@ namespace CoreSports.Controllers
                     // check the credentials  
                     if (await _userManager.CheckPasswordAsync(userToVerify, password))
                     {
-                        return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(userName, userToVerify.Id));
+                        var userClaims = await _userManager.GetClaimsAsync(userToVerify);
+                        return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(userName, userClaims));
                     }
                 }
             }
