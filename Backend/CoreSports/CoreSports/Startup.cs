@@ -91,6 +91,8 @@ namespace CoreSports
                 options.TokenValidationParameters = tokenValidationParameters;
             });
 
+            services.AddCors();
+
             services.AddAuthorization();
 
             services.AddMvc();
@@ -109,6 +111,8 @@ namespace CoreSports
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod());
 
             app.UseAuthentication();
 
