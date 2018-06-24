@@ -4,21 +4,39 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using CoreSports.Services.Contracts;
+using CoreSports.Services.Models;
 using Models;
 
 namespace CoreSports.Services
 {
     public class XmlMappingService : IMappingService
     {
-        public IEnumerable<Event> MapToEvents(Stream documentStream)
+        public EventCommand MapToEvents(Stream documentStream)
         {
             XDocument document = XDocument.Load(documentStream);
+
+            var isCreateOperation = document.Descendants("UpcomingEvents").Count() != 0;
+            var isUpdateOperation = document.Descendants("UpdateEvents").Count() != 0;
+
+            var newCommand = new EventCommand();
             var tenisEvents = this.MapEvents(document.Descendants("TennisEvent"), EventType.Tenis);
             var footballEvents = this.MapEvents(document.Descendants("FootballEvent"), EventType.Tenis);
             var result = new List<Event>();
             result.AddRange(tenisEvents);
             result.AddRange(footballEvents);
-            return result;
+
+            if (isUpdateOperation)
+            {
+                newCommand.Type = CommandType.Update;
+            }
+
+            if (isCreateOperation)
+            {
+                newCommand.Type = CommandType.Create;
+            }
+
+            newCommand.Models = result;
+            return newCommand;
         }
 
         private IList<Event> MapEvents(IEnumerable<XElement> elements, EventType eventType)

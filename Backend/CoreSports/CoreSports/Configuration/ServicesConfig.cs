@@ -11,6 +11,7 @@ namespace CoreSports.Configuration
         {
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IMappingService, XmlMappingService>();
+            services.AddTransient<IEventsService, EventsService>();
         }
     }
 }

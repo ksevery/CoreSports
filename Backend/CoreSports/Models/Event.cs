@@ -20,8 +20,6 @@ namespace Models
 
         public DateTime Time { get; set; }
 
-        public string Name { get; set; }
-
         public EventType Type { get; set; }
 
         public string Home { get; set; }
