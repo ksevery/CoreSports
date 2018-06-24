@@ -10,22 +10,25 @@ class App extends React.Component {
   constructor(props:any){
     super(props);
     this.state = {
-      events: [ ]
-    }
-  }
+      hits: [],
+    };
+  };
 
   public componentDidMount(){
     jqueryLib.ajax({
       cache:false,
       dataType: 'json',
       success:(data:any) => {
-        this.setState({events: data})
+        this.setState({events: data});
       },
-      url: 'http://7cbe7193.ngrok.io/api/events'
+      url: 'http://3d933ceb.ngrok.io/api/events'
     })
   }
 
   public render() {
+
+    const events = (this.state as any).events;
+
     return (
       <div className="App">
           <div className="container-fluid">
@@ -73,7 +76,7 @@ class App extends React.Component {
             </div>
             <div className="Content col-md-8">
               <RootComponent />
-              
+              {events.map((e:any) => <div key='1'>{e}</div>)}
             </div>
             <div className="RightSidebar col-md-2">
               Bets: 
